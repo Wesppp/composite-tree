@@ -1,0 +1,17 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit(form.value)">
+  <input
+    #searchInput
+    type="text"
+    formControlName="search">
+  <app-inn-tree
+    [treeItems]="treeItems"
+    [search]="searchInput.value"
+    formControlName="idInfo"
+    class="tree-1">
+  </app-inn-tree>
+  <button type="submit">Submit</button>
+</form>
+<!--<br>-->
+<!--<app-inn-tree class="tree-2"></app-inn-tree>-->

@@ -1,0 +1,18 @@
+li {
+  list-style-type: none;
+  padding: 1rem 1.5rem;
+
+  & .mark {
+    background-color: green;
+  }
+
+  & .disable {
+    background-color: #b6b6b6;
+  }
+}
+
+:host-context(.tree-2) li {
+  background-color: yellow;
+  font-weight: bold;
+  color: #fff;
+}
