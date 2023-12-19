@@ -1,6 +1,6 @@
-import { BaseTreeComponent } from './base-tree-component.class';
+import { BaseTree } from './base-tree.class';
 
-export class Leaf extends BaseTreeComponent {
+export class Leaf extends BaseTree {
   public operation(isChecked: boolean): void {
     this.setCheckField(isChecked, this.id);
 

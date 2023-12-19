@@ -1,8 +1,8 @@
-import { BaseTreeComponent } from './base-tree-component.class';
+import { BaseTree } from './base-tree.class';
 
-export class Composite extends BaseTreeComponent {
+export class Composite extends BaseTree {
 
-  constructor(id: string, text: string, isChecked: boolean, children: BaseTreeComponent[]) {
+  constructor(id: string, text: string, isChecked: boolean, children: BaseTree[]) {
     super(id, text, isChecked);
 
     children.forEach(child => {
@@ -10,7 +10,7 @@ export class Composite extends BaseTreeComponent {
     });
   }
 
-  public override addComponent(component: BaseTreeComponent): void {
+  public override addComponent(component: BaseTree): void {
     this.children.push(component);
 
     component.setParent(this);

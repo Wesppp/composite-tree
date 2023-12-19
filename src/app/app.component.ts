@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CompositeTreeBuilderService } from './services/composite-tree-builder.service';
-import { BaseTreeComponent } from './models/base-tree-component.class';
-import { treeItems } from './mock-data/tree-items';
 
-interface IForm {
+import { BaseTree } from './classes/base-tree.class';
+import { TREE_ITEMS } from './constants/tree-items';
+import { buildTree } from './utils/composite-tree-builder.util';
+
+interface TreeSearchForm {
   idInfo: FormControl<string[] | null>;
   search: FormControl<string | null>;
 }
@@ -16,23 +17,18 @@ interface IForm {
 })
 export class AppComponent implements OnInit {
   public form!: FormGroup;
-  public treeItems!: BaseTreeComponent[];
-
-  constructor(private compositeTreeBuilderService: CompositeTreeBuilderService) {
-  }
+  public treeItems!: BaseTree[];
 
   public ngOnInit(): void {
-    this.treeItems = this.compositeTreeBuilderService.buildTree(treeItems);
-
-    console.log(this.treeItems);
+    this.treeItems = buildTree(TREE_ITEMS);
 
     this.createForm();
   }
 
   private createForm(): void {
-    this.form = new FormGroup<IForm>({
-      idInfo: new FormControl([]),
-      search: new FormControl('')
+    this.form = new FormGroup<TreeSearchForm>({
+      idInfo: new FormControl<string[] | null>([]),
+      search: new FormControl<string | null>('')
     });
   }
 
