@@ -1,6 +1,6 @@
 import { TreeItem } from '../models/tree-item.interface';
 
-export const treeItems: TreeItem[] = [
+export const TREE_ITEMS: TreeItem[] = [
   {
     id: '1',
     children: [],

@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { DefaultValuePipe } from '../../pipes/default-value.pipe';
 import { SearchMarkDirective } from '../../directives/search-mark.directive';
-import { BaseTreeComponent } from '../../models/base-tree-component.class';
+import { BaseTree } from '../../classes/base-tree.class';
 
 @Component({
   selector: 'app-inn-tree',
@@ -21,34 +21,25 @@ import { BaseTreeComponent } from '../../models/base-tree-component.class';
   ]
 })
 export class InnTreeComponent implements ControlValueAccessor {
-  @Input() public treeItems!: BaseTreeComponent[];
-  @Input() public set value(val: string[]) {
-    this._value = val;
+  @Input() public treeItems!: BaseTree[];
+  @Input() public search: string = '';
 
-    this.onChange(this._value);
-  };
-  @Input() search: string = '';
+  private onTouched!: () => void;
+  private onChange!: (_: string[]) => void;
 
-  public get value(): string[] {
-    return this._value;
-  }
-  private _value: string[] = [];
-
-  public onChangeBox(treeItem: BaseTreeComponent, $event: any): void {
+  public onChangeBox(treeItem: BaseTree, $event: any): void {
     treeItem.operation($event.target.checked);
 
-    this.value = BaseTreeComponent.checkedTreeItemsIds;
+    this.onChange(BaseTree.checkedTreeItemsIds);
   }
 
-  public onChange(_: string[]): void {}
+  public writeValue(value: string[]): void {}
 
-  public writeValue(value: string[]): void {
-    this.value = value;
-  }
-
-  public registerOnChange(fn: any): void {
+  public registerOnChange(fn: (_: string[]) => void): void {
     this.onChange = fn;
   }
 
-  public registerOnTouched(): void {}
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
 }
